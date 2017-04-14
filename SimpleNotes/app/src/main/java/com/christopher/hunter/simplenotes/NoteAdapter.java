@@ -45,7 +45,7 @@ public class NoteAdapter extends BaseAdapter {
 
         if (convertView == null) {
             final LayoutInflater layoutInflater = LayoutInflater.from(context);
-            convertView = layoutInflater.inflate(R.layout.plain_text_note, null);
+            convertView = layoutInflater.inflate(R.layout.plain_text_note_display, null);
         }
 
         final TextView titleTextView = (TextView) convertView.findViewById(R.id.plain_text_title);

@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <EditText
+    <TextView
         android:id="@+id/plain_text_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -12,17 +12,16 @@
         android:background="@android:color/transparent"
         android:ems="10"
         android:hint="@string/plain_text_title_hint"
-        android:inputType="text"
         android:textSize="20sp"
         android:textStyle="bold" />
 
-    <EditText
+    <TextView
         android:id="@+id/plain_text_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:background="@android:color/transparent"
         android:ems="10"
-        android:hint="@string/plain_text_content"
-        android:inputType="textMultiLine" />
+        android:hint="@string/plain_text_content" />
+
 </LinearLayout>
