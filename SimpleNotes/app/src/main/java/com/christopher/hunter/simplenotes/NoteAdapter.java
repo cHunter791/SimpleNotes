@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.util.List;
+
 /**
  * Created by Christopher on 14/04/2017.
  */
@@ -16,16 +18,16 @@ public class NoteAdapter extends BaseAdapter {
     private static final String TAG = "NoteAdapter";
 
     private Context context;
-    private Note[] notes;
+    private List<Note> notes;
 
-    public NoteAdapter(Context context, Note[] notes) {
+    public NoteAdapter(Context context, List<Note> notes) {
         this.context = context;
         this.notes = notes;
     }
 
     @Override
     public int getCount() {
-        return notes.length;
+        return notes.size();
     }
 
     @Override
@@ -41,7 +43,7 @@ public class NoteAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        final Note note = notes[position];
+        final Note note = notes.get(position);
 
         if (convertView == null) {
             final LayoutInflater layoutInflater = LayoutInflater.from(context);

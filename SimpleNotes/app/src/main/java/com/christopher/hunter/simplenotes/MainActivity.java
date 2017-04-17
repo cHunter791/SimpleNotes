@@ -5,12 +5,19 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
+
+    private static final String TAG = "MainActivity";
+    private List<Note> notes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,21 +26,35 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Note testNote = new Note(1, "Test", "This is a test");
-        Note[] testNoteArray = new Note[1];
-        testNoteArray[0] = testNote;
+        // Test notes
+        Note testNote = new Note(1, "Test 1", "This is a test");
+        notes.add(testNote);
+        Note testNote2 = new Note(2, "Test 2", "This is also test");
+        notes.add(testNote2);
+        Note testNote3 = new Note(3, "Test 3", "This is a very very very very very very very very " +
+                "very very very very very very very very very very very very very very very " +
+                "loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo" +
+                "ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo" +
+                "ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong test");
+        notes.add(testNote3);
 
-        GridView noteGrid = (GridView) findViewById(R.id.note_grid);
+        final GridView noteGrid = (GridView) findViewById(R.id.note_grid);
 
-        NoteAdapter noteAdapter = new NoteAdapter(this, testNoteArray);
+        final NoteAdapter noteAdapter = new NoteAdapter(this, notes);
         noteGrid.setAdapter(noteAdapter);
+
+        noteGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView parent, View view, int position, long id) {
+                noteRequest(notes.get(position));
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, NoteActivity.class);
-                MainActivity.this.startActivity(intent);
+                noteRequest(null);
             }
         });
     }
@@ -58,5 +79,17 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void noteRequest(Note note) {
+        Log.d(TAG, "taskEditRequest: starts");
+
+        Intent intent = new Intent(this, NoteActivity.class);
+        if (note != null) {
+            intent.putExtra(Note.class.getSimpleName(), note);
+            startActivity(intent);
+        } else {
+            startActivity(intent);
+        }
     }
 }
