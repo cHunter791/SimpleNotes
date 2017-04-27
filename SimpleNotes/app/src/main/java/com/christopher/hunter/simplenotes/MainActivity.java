@@ -12,12 +12,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
-import java.util.List;
+import java.io.Serializable;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-    private List<Note> notes;
+    private ArrayList<Note> notes = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +28,11 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // Test notes
-        Note testNote = new Note(1, "Test 1", "This is a test");
+        Note testNote = new PlainTextNote(1, "Test 1", "This is a test");
         notes.add(testNote);
-        Note testNote2 = new Note(2, "Test 2", "This is also test");
+        Note testNote2 = new PlainTextNote(2, "Test 2", "This is also test");
         notes.add(testNote2);
-        Note testNote3 = new Note(3, "Test 3", "This is a very very very very very very very very " +
+        Note testNote3 = new PlainTextNote(3, "Test 3", "This is a very very very very very very very very " +
                 "very very very very very very very very very very very very very very very " +
                 "loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo" +
                 "ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo" +
@@ -86,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, NoteActivity.class);
         if (note != null) {
-            intent.putExtra(Note.class.getSimpleName(), note);
+            intent.putExtra(Note.class.getSimpleName(), (Serializable) note);
             startActivity(intent);
         } else {
             startActivity(intent);

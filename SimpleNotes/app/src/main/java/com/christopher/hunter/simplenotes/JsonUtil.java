@@ -18,7 +18,7 @@ public class JsonUtil {
         JSONObject jsonObject = new JSONObject();
 
         try {
-            jsonObject.put("_id", note.get_Id());
+            jsonObject.put("id", note.getId());
             jsonObject.put("title", note.getTitle());
             jsonObject.put("content", note.getContent());
         } catch (JSONException e) {

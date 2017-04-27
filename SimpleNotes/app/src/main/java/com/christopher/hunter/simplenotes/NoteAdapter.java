@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by Christopher on 14/04/2017.
@@ -18,9 +18,9 @@ public class NoteAdapter extends BaseAdapter {
     private static final String TAG = "NoteAdapter";
 
     private Context context;
-    private List<Note> notes;
+    private ArrayList<Note> notes;
 
-    public NoteAdapter(Context context, List<Note> notes) {
+    public NoteAdapter(Context context, ArrayList<Note> notes) {
         this.context = context;
         this.notes = notes;
     }
