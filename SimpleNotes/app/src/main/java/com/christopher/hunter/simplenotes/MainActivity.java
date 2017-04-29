@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         Note testNote2 = new PlainTextNote(2, "Test 2", "This is also test");
         notes.add(testNote2);
         Note testNote3 = new PlainTextNote(3, "Test 3", "This is a very very very very very very very very " +
-                "very very very very very very very very very very very very very very very " +
+                "very very very very very very very very very very very very very very " +
                 "loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo" +
                 "ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo" +
                 "ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong test");
