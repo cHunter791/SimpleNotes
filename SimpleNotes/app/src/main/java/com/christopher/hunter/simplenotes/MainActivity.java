@@ -14,11 +14,16 @@ import android.widget.GridView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-    private ArrayList<Note> notes = new ArrayList<>();
+    private List<Note> notes = new ArrayList<>();
+    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,17 +32,22 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Realm.init(this);
+        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder().build();
+        Realm.deleteRealm(realmConfiguration);
+        realm = Realm.getInstance(realmConfiguration);
+
         // Test notes
-        Note testNote = new PlainTextNote(1, "Test 1", "This is a test");
-        notes.add(testNote);
-        Note testNote2 = new PlainTextNote(2, "Test 2", "This is also test");
-        notes.add(testNote2);
-        Note testNote3 = new PlainTextNote(3, "Test 3", "This is a very very very very very very very very " +
-                "very very very very very very very very very very very very very very " +
-                "loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo" +
-                "ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo" +
-                "ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong test");
-        notes.add(testNote3);
+//        Note testNote = new PlainTextNote("Test 1", "This is a test");
+//        notes.add(testNote);
+//        Note testNote2 = new PlainTextNote("Test 2", "This is also test");
+//        notes.add(testNote2);
+//        Note testNote3 = new PlainTextNote("Test 3", "This is a very very very very very very very very " +
+//                "very very very very very very very very very very very very very very " +
+//                "loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo" +
+//                "ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo" +
+//                "ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong test");
+//        notes.add(testNote3);
 
         final GridView noteGrid = (GridView) findViewById(R.id.note_grid);
 
@@ -58,6 +68,12 @@ public class MainActivity extends AppCompatActivity {
                 noteRequest(null);
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        realm.close();
     }
 
     @Override

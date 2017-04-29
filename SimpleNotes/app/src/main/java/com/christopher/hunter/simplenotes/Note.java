@@ -8,9 +8,6 @@ interface Note {
 
     String title = "";
 
-    long getId();
-    void setId(long id);
-
     String getTitle();
     void setTitle(String title);
 

@@ -2,31 +2,27 @@ package com.christopher.hunter.simplenotes;
 
 import java.io.Serializable;
 
+import io.realm.RealmObject;
+
+import static android.R.attr.id;
+
 /**
  * Created by Christopher on 27/04/2017.
  */
 
-public class PlainTextNote implements Note, Serializable {
+public class PlainTextNote extends RealmObject implements Note, Serializable {
     public static final long serialVersionUID = 12042017L;
 
-    private long id;
     private String title;
     private String content;
 
-    public PlainTextNote(long id, String title, String content) {
-        this.id = id;
+    public PlainTextNote() {
+
+    }
+
+    public PlainTextNote(String title, String content) {
         this.title = title;
         this.content = content;
-    }
-
-    @Override
-    public long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(long id) {
-        this.id = id;
     }
 
     @Override

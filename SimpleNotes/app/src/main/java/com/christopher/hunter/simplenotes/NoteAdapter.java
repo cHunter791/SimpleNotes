@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Christopher on 14/04/2017.
@@ -18,10 +19,18 @@ public class NoteAdapter extends BaseAdapter {
     private static final String TAG = "NoteAdapter";
 
     private Context context;
-    private ArrayList<Note> notes;
+    private List<Note> notes;
 
-    public NoteAdapter(Context context, ArrayList<Note> notes) {
+    public NoteAdapter(Context context, List<Note> notes) {
         this.context = context;
+        this.notes = notes;
+    }
+
+    public List<Note> getNotes() {
+        return notes;
+    }
+
+    public void setNotes(ArrayList<Note> notes) {
         this.notes = notes;
     }
 
