@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 import io.realm.RealmObject;
 
-import static android.R.attr.id;
-
 /**
  * Created by Christopher on 27/04/2017.
  */
@@ -13,16 +11,18 @@ import static android.R.attr.id;
 public class PlainTextNote extends RealmObject implements Note, Serializable {
     public static final long serialVersionUID = 12042017L;
 
+    private long id;
     private String title;
     private String content;
 
-    public PlainTextNote() {
-
+    @Override
+    public long getId() {
+        return id;
     }
 
-    public PlainTextNote(String title, String content) {
-        this.title = title;
-        this.content = content;
+    @Override
+    public void setId(long id) {
+        this.id = id;
     }
 
     @Override

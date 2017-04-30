@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,35 +17,41 @@ public class NoteAdapter extends BaseAdapter {
 
     private static final String TAG = "NoteAdapter";
 
+    private LayoutInflater inflater;
     private Context context;
     private List<Note> notes;
 
-    public NoteAdapter(Context context, List<Note> notes) {
-        this.context = context;
-        this.notes = notes;
+    public NoteAdapter(Context context) {
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     public List<Note> getNotes() {
         return notes;
     }
 
-    public void setNotes(ArrayList<Note> notes) {
+    public void setNotes(List<Note> notes) {
         this.notes = notes;
     }
 
     @Override
     public int getCount() {
+        if (notes == null) {
+            return 0;
+        }
         return notes.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        if (notes == null || notes.get(position) == null) {
+            return null;
+        }
+        return notes.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
@@ -55,15 +60,16 @@ public class NoteAdapter extends BaseAdapter {
         final Note note = notes.get(position);
 
         if (convertView == null) {
-            final LayoutInflater layoutInflater = LayoutInflater.from(context);
-            convertView = layoutInflater.inflate(R.layout.plain_text_note_display, null);
+            convertView = inflater.inflate(R.layout.plain_text_note_display, null);
         }
 
-        final TextView titleTextView = (TextView) convertView.findViewById(R.id.plain_text_title);
-        final TextView contentTextView = (TextView) convertView.findViewById(R.id.plain_text_content);
+        if (note != null) {
+            final TextView titleTextView = (TextView) convertView.findViewById(R.id.plain_text_title);
+            final TextView contentTextView = (TextView) convertView.findViewById(R.id.plain_text_content);
 
-        titleTextView.setText(note.getTitle());
-        contentTextView.setText(note.getContent());
+            titleTextView.setText(note.getTitle());
+            contentTextView.setText(note.getContent());
+        }
 
         return convertView;
     }

@@ -12,18 +12,19 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmConfiguration;
+import io.realm.RealmResults;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-    private List<Note> notes = new ArrayList<>();
+    private List<Note> notes;
     private Realm realm;
+    private NoteAdapter noteAdapter;
+    private GridView noteGrid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +33,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Realm.init(this);
-        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder().build();
-        Realm.deleteRealm(realmConfiguration);
-        realm = Realm.getInstance(realmConfiguration);
+        realm = Realm.getDefaultInstance();
 
         // Test notes
 //        Note testNote = new PlainTextNote("Test 1", "This is a test");
@@ -49,18 +47,6 @@ public class MainActivity extends AppCompatActivity {
 //                "ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong test");
 //        notes.add(testNote3);
 
-        final GridView noteGrid = (GridView) findViewById(R.id.note_grid);
-
-        final NoteAdapter noteAdapter = new NoteAdapter(this, notes);
-        noteGrid.setAdapter(noteAdapter);
-
-        noteGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView parent, View view, int position, long id) {
-                noteRequest(notes.get(position));
-            }
-        });
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +54,30 @@ public class MainActivity extends AppCompatActivity {
                 noteRequest(null);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Log.d(TAG, "onResume: ");
+
+        notes = loadNotes();
+
+        Log.d(TAG, "onResume: populating grid");
+        noteGrid = (GridView) findViewById(R.id.note_grid);
+
+        noteAdapter = new NoteAdapter(this);
+        noteAdapter.setNotes(notes);
+        noteGrid.setAdapter(noteAdapter);
+        noteGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView parent, View view, int position, long id) {
+                noteRequest(notes.get(position).getId());
+            }
+        });
+        noteAdapter.notifyDataSetChanged();
+        noteGrid.invalidate();
     }
 
     @Override
@@ -98,12 +108,22 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void noteRequest(Note note) {
+    private ArrayList<Note> loadNotes() {
+
+        Log.d(TAG, "loadNotes: loading in notes");
+
+        RealmResults<PlainTextNote> notes = realm.where(PlainTextNote.class).findAll();
+        Log.d(TAG, "loadNotes: loaded in " + notes.size() + " note(s)");
+
+        return new ArrayList<Note>(notes);
+    }
+
+    private void noteRequest(Long id) {
         Log.d(TAG, "taskEditRequest: starts");
 
         Intent intent = new Intent(this, NoteActivity.class);
-        if (note != null) {
-            intent.putExtra(Note.class.getSimpleName(), (Serializable) note);
+        if (id != null) {
+            intent.putExtra(Note.class.getSimpleName(), id);
             startActivity(intent);
         } else {
             startActivity(intent);
