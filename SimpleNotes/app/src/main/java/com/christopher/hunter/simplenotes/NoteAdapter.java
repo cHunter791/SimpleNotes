@@ -60,7 +60,7 @@ public class NoteAdapter extends BaseAdapter {
         final Note note = notes.get(position);
 
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.plain_text_note_display, null);
+            convertView = inflater.inflate(R.layout.note_display, null);
         }
 
         if (note != null) {

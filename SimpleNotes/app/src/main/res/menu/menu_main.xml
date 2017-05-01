@@ -3,13 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.christopher.hunter.simplenotes.MainActivity">
     <item
-        android:id="@+id/action_search"
-        android:actionViewClass="android.widget.SearchView"
-        android:icon="@drawable/ic_search_black_24dp"
-        android:orderInCategory="100"
-        android:title="@string/action_search"
-        app:showAsAction="ifRoom" />
-    <item
         android:id="@+id/action_settings"
         android:orderInCategory="101"
         android:title="@string/action_settings"

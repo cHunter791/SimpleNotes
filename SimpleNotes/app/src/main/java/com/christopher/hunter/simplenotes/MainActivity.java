@@ -18,13 +18,16 @@ import java.util.List;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
+/* TODO: Put in tests
+   TODO: Tidy up code (separate out Realm code)
+   TODO: Use custom linear layout (http://stackoverflow.com/questions/7545915/gridview-rows-overlapping-how-to-make-row-height-fit-the-tallest-item) to expand each row to max note height
+   TODO: Delete notes by selecting with long press then pressing delete button
+*/
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-    private List<Note> notes;
     private Realm realm;
-    private NoteAdapter noteAdapter;
-    private GridView noteGrid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,18 +37,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         realm = Realm.getDefaultInstance();
-
-        // Test notes
-//        Note testNote = new PlainTextNote("Test 1", "This is a test");
-//        notes.add(testNote);
-//        Note testNote2 = new PlainTextNote("Test 2", "This is also test");
-//        notes.add(testNote2);
-//        Note testNote3 = new PlainTextNote("Test 3", "This is a very very very very very very very very " +
-//                "very very very very very very very very very very very very very very " +
-//                "loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo" +
-//                "ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo" +
-//                "ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong test");
-//        notes.add(testNote3);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -62,22 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d(TAG, "onResume: ");
 
-        notes = loadNotes();
-
-        Log.d(TAG, "onResume: populating grid");
-        noteGrid = (GridView) findViewById(R.id.note_grid);
-
-        noteAdapter = new NoteAdapter(this);
-        noteAdapter.setNotes(notes);
-        noteGrid.setAdapter(noteAdapter);
-        noteGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView parent, View view, int position, long id) {
-                noteRequest(notes.get(position).getId());
-            }
-        });
-        noteAdapter.notifyDataSetChanged();
-        noteGrid.invalidate();
+        updateNoteGrid();
     }
 
     @Override
@@ -108,14 +84,34 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void updateNoteGrid() {
+        final List<Note> notes = loadNotes();
+
+        Log.d(TAG, "onResume: populating grid");
+        GridView noteGrid = (GridView) findViewById(R.id.note_grid);
+
+        NoteAdapter noteAdapter = new NoteAdapter(this);
+        noteAdapter.setNotes(notes);
+
+        noteGrid.setAdapter(noteAdapter);
+        noteGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView parent, View view, int position, long id) {
+                noteRequest(notes.get(position).getId());
+            }
+        });
+        noteAdapter.notifyDataSetChanged();
+        noteGrid.invalidate();
+    }
+
     private ArrayList<Note> loadNotes() {
 
         Log.d(TAG, "loadNotes: loading in notes");
 
-        RealmResults<PlainTextNote> notes = realm.where(PlainTextNote.class).findAll();
+        RealmResults<Note> notes = realm.where(Note.class).findAll();
         Log.d(TAG, "loadNotes: loaded in " + notes.size() + " note(s)");
 
-        return new ArrayList<Note>(notes);
+        return new ArrayList<>(notes);
     }
 
     private void noteRequest(Long id) {

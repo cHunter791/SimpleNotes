@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
@@ -37,7 +36,7 @@ public class NoteActivity extends AppCompatActivity {
         passedId = (Long) intent.getSerializableExtra(Note.class.getSimpleName());
 
         if (passedId != null) {
-            note = realm.where(PlainTextNote.class).equalTo("id", passedId).findFirst();
+            note = realm.where(Note.class).equalTo("id", passedId).findFirst();
 
             noteTitle.setText(note.getTitle());
             noteContent.setText(note.getContent());
@@ -80,13 +79,14 @@ public class NoteActivity extends AppCompatActivity {
         realm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                Note newNote = realm.createObject(PlainTextNote.class);
+                Note newNote = realm.createObject(Note.class);
 
                 try {
-                    newNote.setId(realm.where(PlainTextNote.class).max("id").intValue() + 1);
+                    newNote.setId(realm.where(Note.class).max("id").intValue() + 1);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     return;
                 }
+
                 newNote.setTitle(noteTitle.getText().toString());
                 newNote.setContent(noteContent.getText().toString());
 
@@ -96,23 +96,11 @@ public class NoteActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_note, menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_delete) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
