@@ -4,11 +4,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.GridView;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -37,7 +35,7 @@ public class AppDialog extends DialogFragment {
             throw new IllegalArgumentException("Must pass ID and TITLE in the bundle");
         }
 
-        builder.setMessage("Would you like to \n\nDELETE DELETE DELETE \n\nnote '" + title + "'?")
+        builder.setMessage("Would you like to delete note '" + title + "'?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

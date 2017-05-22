@@ -22,7 +22,6 @@ import io.realm.RealmResults;
 /* TODO: Put in tests
    TODO: Tidy up code (separate out Realm code)
    TODO: Use custom linear layout (http://stackoverflow.com/questions/7545915/gridview-rows-overlapping-how-to-make-row-height-fit-the-tallest-item) to expand each row to max note height
-   TODO: Delete notes by selecting with long press then pressing delete button
 */
 
 public class MainActivity extends AppCompatActivity implements DialogInterface.OnDismissListener {
