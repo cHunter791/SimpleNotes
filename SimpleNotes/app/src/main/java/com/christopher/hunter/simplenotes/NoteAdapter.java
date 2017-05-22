@@ -1,6 +1,7 @@
 package com.christopher.hunter.simplenotes;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,6 @@ public class NoteAdapter extends BaseAdapter {
     private static final String TAG = "NoteAdapter";
 
     private LayoutInflater inflater;
-    private Context context;
     private List<Note> notes;
 
     public NoteAdapter(Context context) {
@@ -57,6 +57,7 @@ public class NoteAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+        Log.d(TAG, "getView: started");
         final Note note = notes.get(position);
 
         if (convertView == null) {

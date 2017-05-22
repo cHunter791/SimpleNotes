@@ -1,5 +1,6 @@
 package com.christopher.hunter.simplenotes;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -24,7 +25,7 @@ import io.realm.RealmResults;
    TODO: Delete notes by selecting with long press then pressing delete button
 */
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements DialogInterface.OnDismissListener {
 
     private static final String TAG = "MainActivity";
     private Realm realm;
@@ -37,6 +38,20 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         realm = Realm.getDefaultInstance();
+
+        GridView noteGrid = (GridView) findViewById(R.id.note_grid);
+        noteGrid.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                AppDialog dialog = new AppDialog();
+                Bundle args = new Bundle();
+                args.putLong("ID", loadNotes().get(position).getId());
+                args.putString("TITLE", loadNotes().get(position).getTitle());
+                dialog.setArguments(args);
+                dialog.show(getFragmentManager(), null);
+                return true;
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -82,6 +97,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        updateNoteGrid();
     }
 
     private void updateNoteGrid() {
