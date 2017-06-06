@@ -6,7 +6,7 @@ import android.arch.persistence.room.PrimaryKey;
 import java.io.Serializable;
 
 @Entity
-public class Note implements Serializable{
+public class Note implements Serializable {
 
     @PrimaryKey (autoGenerate = true)
     private int id;

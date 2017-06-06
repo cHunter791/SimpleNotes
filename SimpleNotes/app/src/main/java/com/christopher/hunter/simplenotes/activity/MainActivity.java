@@ -19,9 +19,12 @@ import com.christopher.hunter.simplenotes.viewmodel.NoteGridViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-/* TODO: Put in tests
+/*
+    TODO: Put in tests
 */
 
+// LifecycleActivity is a temporary measure from Google. Will be deprecated when Lifecycle is fully released
+// as support library fragments and activities will implement LifecycleOwner.
 public class MainActivity extends LifecycleActivity implements View.OnClickListener, View.OnLongClickListener {
 
     private static final String TAG = "MainActivity";
