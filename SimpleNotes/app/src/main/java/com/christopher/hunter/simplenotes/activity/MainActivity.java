@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
-    TODO: Put in tests
+    TODO Put in tests
 */
 
 // LifecycleActivity is a temporary measure from Google. Will be deprecated when Lifecycle is fully released

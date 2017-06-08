@@ -19,6 +19,8 @@ import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
+// TODO Create tests for opening edit screen and deleting notes. Add note for these tests to initialize()
+
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
 

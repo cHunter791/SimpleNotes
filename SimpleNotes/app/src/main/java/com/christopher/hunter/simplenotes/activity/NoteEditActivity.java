@@ -12,6 +12,8 @@ import com.christopher.hunter.simplenotes.R;
 import com.christopher.hunter.simplenotes.db.Note;
 import com.christopher.hunter.simplenotes.viewmodel.NoteEditViewModel;
 
+// TODO Tests
+
 public class NoteEditActivity extends AppCompatActivity {
 
     private static final String TAG = "NoteEditActivity";
