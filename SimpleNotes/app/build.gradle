@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
     defaultConfig {
         applicationId "com.christopher.hunter.simplenotes"
-        minSdkVersion 16
-        targetSdkVersion 25
+        minSdkVersion 21
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -20,23 +20,32 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Support Libraries
+    implementation "com.android.support:appcompat-v7:$rootProject.supportlibraryVersion"
+    implementation "com.android.support:design:$rootProject.supportlibraryVersion"
+    implementation "com.android.support:recyclerview-v7:$rootProject.supportlibraryVersion"
+    implementation "com.android.support:cardview-v7:$rootProject.supportlibraryVersion"
+
+    // Constraint Layout
+    implementation "com.android.support.constraint:constraint-layout:$rootProject.constraintlayoutVersion"
+
+    // Lifecycle
+    implementation "android.arch.lifecycle:runtime:$rootProject.lifecycleVersion"
+    implementation "android.arch.lifecycle:extensions:$rootProject.lifecycleVersion"
+    annotationProcessor "android.arch.lifecycle:compiler:$rootProject.lifecycleVersion"
+
+    // Room
+    implementation "android.arch.persistence.room:runtime:$rootProject.roomVersion"
+    annotationProcessor "android.arch.persistence.room:compiler:$rootProject.roomVersion"
+
+    // Junit
+    testImplementation "junit:junit:$rootProject.junitVersion"
+
+    // Espresso
+    androidTestImplementation("com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion", {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:design:25.3.1'
-    compile 'com.android.support:recyclerview-v7:25.3.1'
-    compile 'com.android.support:cardview-v7:25.3.1'
-
-    compile 'android.arch.lifecycle:runtime:1.0.0-alpha1'
-    compile 'android.arch.lifecycle:extensions:1.0.0-alpha1'
-    annotationProcessor 'android.arch.lifecycle:compiler:1.0.0-alpha1'
-
-    compile 'android.arch.persistence.room:runtime:1.0.0-alpha1'
-    annotationProcessor 'android.arch.persistence.room:compiler:1.0.0-alpha1'
-
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }
 
