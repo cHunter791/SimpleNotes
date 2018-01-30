@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.christopher.hunter.simplenotes.R;
+import com.christopher.hunter.simplenotes.ui.main.MainActivity;
+import com.christopher.hunter.simplenotes.ui.note.add.NoteAddActivity;
 
 import org.junit.Before;
 import org.junit.Rule;

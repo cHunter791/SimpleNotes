@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".ui.main.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -20,22 +20,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.NoteAddActivity"
+            android:name=".ui.note.add.NoteAddActivity"
             android:label="@string/title_activity_note"
-            android:parentActivityName=".activity.MainActivity"
+            android:parentActivityName=".ui.main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.christopher.hunter.simplenotes.activity.MainActivity" />
+                android:value="com.christopher.hunter.simplenotes.ui.main.MainActivity" />
         </activity>
         <activity
-            android:name=".activity.NoteEditActivity"
+            android:name=".ui.note.edit.NoteEditActivity"
             android:label="@string/title_activity_note"
-            android:parentActivityName=".activity.MainActivity"
+            android:parentActivityName=".ui.main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.christopher.hunter.simplenotes.activity.MainActivity" />
+                android:value="com.christopher.hunter.simplenotes.ui.main.MainActivity" />
         </activity>
     </application>
 

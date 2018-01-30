@@ -1,4 +1,4 @@
-package com.christopher.hunter.simplenotes.activity;
+package com.christopher.hunter.simplenotes.ui.main;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,20 +7,20 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.christopher.hunter.simplenotes.R;
-import com.christopher.hunter.simplenotes.db.Note;
+import com.christopher.hunter.simplenotes.data.local.db.Note;
 
 import java.util.List;
 
 class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewHolder> {
 
-    private List<Note> noteModelList;
-    private View.OnClickListener clickListener;
-    private View.OnLongClickListener longClickListener;
+    private List<Note> mNoteModelList;
+    private View.OnClickListener mClickListener;
+    private View.OnLongClickListener mLongClickListener;
 
     RecyclerViewAdapter(List<Note> noteModelList, View.OnClickListener clickListener, View.OnLongClickListener longClickListener) {
-        this.noteModelList = noteModelList;
-        this.clickListener = clickListener;
-        this.longClickListener = longClickListener;
+        mNoteModelList = noteModelList;
+        mClickListener = clickListener;
+        mLongClickListener = longClickListener;
     }
 
     @Override
@@ -31,32 +31,32 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.Recyc
 
     @Override
     public void onBindViewHolder(final RecyclerViewHolder holder, int position) {
-        Note noteModel = noteModelList.get(position);
-        holder.titleTextView.setText(noteModel.getTitle());
-        holder.contentTextView.setText(noteModel.getContent());
+        Note noteModel = mNoteModelList.get(position);
+        holder.mTitleTextView.setText(noteModel.getTitle());
+        holder.mContentTextView.setText(noteModel.getContent());
         holder.itemView.setTag(noteModel);
-        holder.itemView.setOnClickListener(clickListener);
-        holder.itemView.setOnLongClickListener(longClickListener);
+        holder.itemView.setOnClickListener(mClickListener);
+        holder.itemView.setOnLongClickListener(mLongClickListener);
     }
 
     @Override
     public int getItemCount() {
-        return noteModelList.size();
+        return mNoteModelList.size();
     }
 
     void addItems(List<Note> noteModelList) {
-        this.noteModelList = noteModelList;
+        mNoteModelList = noteModelList;
         notifyDataSetChanged();
     }
 
     static class RecyclerViewHolder extends RecyclerView.ViewHolder {
-        private TextView titleTextView;
-        private TextView contentTextView;
+        private TextView mTitleTextView;
+        private TextView mContentTextView;
 
         RecyclerViewHolder(View view) {
             super(view);
-            titleTextView = (TextView) view.findViewById(R.id.plain_text_title);
-            contentTextView = (TextView) view.findViewById(R.id.plain_text_content);
+            mTitleTextView = view.findViewById(R.id.plain_text_title);
+            mContentTextView = view.findViewById(R.id.plain_text_content);
         }
     }
 }

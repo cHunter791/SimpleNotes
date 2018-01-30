@@ -1,4 +1,4 @@
-package com.christopher.hunter.simplenotes.db;
+package com.christopher.hunter.simplenotes.data.local.db;
 
 import org.junit.Test;
 

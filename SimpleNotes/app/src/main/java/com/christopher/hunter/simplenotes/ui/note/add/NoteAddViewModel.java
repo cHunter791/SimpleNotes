@@ -1,29 +1,29 @@
-package com.christopher.hunter.simplenotes.viewmodel;
+package com.christopher.hunter.simplenotes.ui.note.add;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.christopher.hunter.simplenotes.db.AppDatabase;
-import com.christopher.hunter.simplenotes.db.Note;
+import com.christopher.hunter.simplenotes.data.local.db.AppDatabase;
+import com.christopher.hunter.simplenotes.data.local.db.Note;
 
 public class NoteAddViewModel extends AndroidViewModel {
 
     private static final String TAG = "NoteAddViewModel";
 
-    private AppDatabase appDatabase;
+    private AppDatabase mAppDatabase;
 
     public NoteAddViewModel(Application application) {
         super(application);
         Log.d(TAG, "NoteAddViewModel: starts");
 
-        this.appDatabase = AppDatabase.getDatabase(this.getApplication());
+        this.mAppDatabase = AppDatabase.getDatabase(this.getApplication());
     }
 
-    public void addNote(Note note) {
+    void addNote(Note note) {
         Log.d(TAG, "addNote: starts");
-        new addAsyncTask(appDatabase).execute(note);
+        new addAsyncTask(mAppDatabase).execute(note);
     }
 
     private static class addAsyncTask extends AsyncTask<Note, Void, Void> {

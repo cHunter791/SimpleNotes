@@ -1,4 +1,4 @@
-package com.christopher.hunter.simplenotes.viewmodel;
+package com.christopher.hunter.simplenotes.ui.main;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
@@ -6,8 +6,8 @@ import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.christopher.hunter.simplenotes.db.AppDatabase;
-import com.christopher.hunter.simplenotes.db.Note;
+import com.christopher.hunter.simplenotes.data.local.db.AppDatabase;
+import com.christopher.hunter.simplenotes.data.local.db.Note;
 
 import java.util.List;
 
@@ -27,16 +27,17 @@ public class NoteGridViewModel extends AndroidViewModel {
         noteList = appDatabase.noteModel().getAllNotes();
     }
 
-    public LiveData<List<Note>> getNoteList() {
+    LiveData<List<Note>> getNoteList() {
         Log.d(TAG, "getNoteList: starts");
         return noteList;
     }
 
-    public void deleteNote(Note note) {
+    void deleteNote(Note note) {
         Log.d(TAG, "deleteNote: starts");
         new deleteAsyncTask(appDatabase).execute(note);
     }
 
+    // TODO : Replace with RxJava?
     private static class deleteAsyncTask extends AsyncTask<Note, Void, Void> {
 
         private AppDatabase db;

@@ -1,12 +1,12 @@
-package com.christopher.hunter.simplenotes.viewmodel;
+package com.christopher.hunter.simplenotes.ui.note.edit;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.christopher.hunter.simplenotes.db.AppDatabase;
-import com.christopher.hunter.simplenotes.db.Note;
+import com.christopher.hunter.simplenotes.data.local.db.AppDatabase;
+import com.christopher.hunter.simplenotes.data.local.db.Note;
 
 public class NoteEditViewModel extends AndroidViewModel {
 
@@ -21,7 +21,7 @@ public class NoteEditViewModel extends AndroidViewModel {
         this.appDatabase = AppDatabase.getDatabase(this.getApplication());
     }
 
-    public void updateNote(Note note) {
+    void updateNote(Note note) {
         Log.d(TAG, "updateNote: starts");
         new updateAsyncTask(appDatabase).execute(note);
     }

@@ -1,4 +1,4 @@
-package com.christopher.hunter.simplenotes.db;
+package com.christopher.hunter.simplenotes.data.local.db;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
